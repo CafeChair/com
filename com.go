@@ -23,7 +23,7 @@ func WalkDir(dirpath,suffix string) (files []string, err error) {
 }
 
 // 遍历目录下所有文件的md5值
-func MD5All(root string) (map[string][md5.Size]byte, error) {
+func MD5Files(root string) (map[string][md5.Size]byte, error) {
 	mp := make(map[string][md5.Size]byte)
 	err := filepath.Walk(root, func(filename string, f os.FileInfo, err error) error {
 		if err != nil {
@@ -38,10 +38,9 @@ func MD5All(root string) (map[string][md5.Size]byte, error) {
 		}
 		mp[filename] = md5.Sum(data)
 		return nil
-		})
+	})
 	if err != nil {
 		return nil,err
 	}
 	return mp,nil
 }
-
