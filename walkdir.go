@@ -17,4 +17,8 @@ func WalkDir(dirpath,suffix string) (files []string, err error) {
 		return nil
 		})
 	return files,err
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e992076c87bafaadc319c148f575aabeb491d333
