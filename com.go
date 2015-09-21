@@ -44,3 +44,38 @@ func MD5Files(root string) (map[string][md5.Size]byte, error) {
 	}
 	return mp,nil
 }
+
+//指定文件符是否是文件
+func IsFile(filename string) bool {
+	file,err := os.Stat(filename)
+	if err != nil {
+		return false
+	}
+	return !file.IsDir()
+}
+
+//指定文件或者目录是否存在
+func IsExist(filename string) bool {
+	_, err := os.Stat(filename)
+	return err == nil || os.IsExist(err)
+}
+
+//逐行读取文件返回列表
+func ParseFile(filename string) ([]string, error) {
+	str := make([]string, 0)
+	file,err := os.Open(filename)
+	if err != nil {
+		return nil,err
+	}
+	defer file.Close()
+	buf := bufio.NewReader(file)
+	for {
+		line,err := buf.ReadString('\n')
+		if err == io.EOF {
+			break
+		} else {
+			str = append(str, line)
+		}
+	}
+	return str,nil
+}
